@@ -1,6 +1,6 @@
 package com.colvir.bootcamp.homework2.api;
 
-public interface Converter {
+public interface TemperatureConverter {
 
     Double convert(Double value);
 

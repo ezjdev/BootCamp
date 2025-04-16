@@ -1,5 +1,10 @@
 package com.colvir.bootcamp.homework2.api;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Getter
+@RequiredArgsConstructor
 public enum TemperatureUnit {
     FAHRENHEIT_TO_CELSIUS("fahrenheitToCelsius"),
     FAHRENHEIT_TO_KELVIN("fahrenheitToKelvin"),
@@ -9,14 +14,6 @@ public enum TemperatureUnit {
     CELSIUS_TO_FAHRENHEIT("celsiusToFahrenheit");
 
     private final String name;
-
-    TemperatureUnit(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
 
     @Override
     public String toString() {
