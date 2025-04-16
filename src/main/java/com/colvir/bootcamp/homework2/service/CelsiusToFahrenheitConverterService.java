@@ -1,11 +1,11 @@
 package com.colvir.bootcamp.homework2.service;
 
-import com.colvir.bootcamp.homework2.api.Converter;
+import com.colvir.bootcamp.homework2.api.TemperatureConverter;
 import org.springframework.stereotype.Component;
 
 
 @Component(value = "celsiusToFahrenheit")
-public class CelsiusToFahrenheitConverterService implements Converter {
+public class CelsiusToFahrenheitConverterService implements TemperatureConverter {
 
     @Override
     public Double convert(Double value) {
