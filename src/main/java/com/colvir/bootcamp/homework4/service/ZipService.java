@@ -16,12 +16,14 @@ import java.util.zip.ZipOutputStream;
 @Service
 public class ZipService {
 
+    public static final int BUFF_SIZE = 1024;
+
     public Path zip(Path source, Path destination) {
         try (ZipOutputStream zipOutputStream = new ZipOutputStream(new FileOutputStream(destination.toFile()));
                 FileInputStream inputStream = new FileInputStream(source.toFile())) {
             ZipEntry zipEntry = new ZipEntry(source.toString());
             zipOutputStream.putNextEntry(zipEntry);
-            byte[] bytes = new byte[1024];
+            byte[] bytes = new byte[BUFF_SIZE];
             int length;
             while((length = inputStream.read(bytes)) >= 0) {
                 zipOutputStream.write(bytes, 0, length);
@@ -33,7 +35,7 @@ public class ZipService {
     }
 
     public void unZip(Path source, Path destination){
-        byte[] buffer = new byte[1024];
+        byte[] buffer = new byte[BUFF_SIZE];
         try (ZipInputStream zipInputStream = new ZipInputStream(new FileInputStream(source.toFile()))) {
             ZipEntry zipEntry = zipInputStream.getNextEntry();
             while (zipEntry != null) {
