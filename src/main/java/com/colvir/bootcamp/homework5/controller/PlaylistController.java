@@ -34,11 +34,10 @@ public class PlaylistController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<SongDto> addSong(@RequestBody @Valid SongDto songDto){
+    public SongDto addSong(@RequestBody @Valid SongDto songDto){
         return Optional.of(songDto)
                         .filter(dto -> Optional.ofNullable(dto.getId()).isEmpty())
                         .flatMap(playlistService::add)
-                        .map(ResponseEntity::ok)
                         .orElseThrow(() -> new IllegalArgumentException("Can't save a song that already have id"));
     }
 
