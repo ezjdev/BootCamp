@@ -1,0 +1,7 @@
+server:
+  port: 8090
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  packages-to-scan: com.colvir.bootcamp.homework5
