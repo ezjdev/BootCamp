@@ -1,5 +1,7 @@
 package com.colvir.bootcamp.homework1;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Function;
@@ -7,6 +9,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Slf4j
 public class Main {
 
     public static void main(String[] args) {
@@ -20,7 +23,7 @@ public class Main {
                 .stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .map(Map.Entry::getKey)
-                .forEach(System.out::println);
+                .forEach(log::info);
     }
 
 }

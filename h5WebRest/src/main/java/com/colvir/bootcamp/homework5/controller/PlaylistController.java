@@ -48,7 +48,7 @@ public class PlaylistController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id){
+    public ResponseEntity<Object> delete(@PathVariable Long id){
         return Optional.of(id)
                         .flatMap(playlistService::getById)
                         .flatMap(playlistService::delete)
