@@ -1,6 +1,7 @@
 package com.colvir.bootcamp.homework6.config;
 
 import com.colvir.bootcamp.homework6.api.PlaylistClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestClient;
@@ -9,10 +10,15 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
 @Configuration
 public class HttpClientConfig {
+
+    @Value("${backend.path.full}")
+    private String serverFullPath;
+
+
     @Bean
     public PlaylistClient apiClient() {
         RestClient restClient = RestClient.builder()
-                .baseUrl("http://localhost:8090/api/playlist")
+                .baseUrl(serverFullPath)
                 .defaultHeader("Content-Type", "application/json")
                 .build();
 

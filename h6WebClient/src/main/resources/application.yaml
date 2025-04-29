@@ -1,5 +1,8 @@
 server:
   port: 8091
+backend:
+  path:
+    full: "http://localhost:8090/api/playlist"
 spring:
   thymeleaf:
     enabled: true
