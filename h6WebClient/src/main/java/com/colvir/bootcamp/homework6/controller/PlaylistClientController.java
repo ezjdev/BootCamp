@@ -2,9 +2,11 @@ package com.colvir.bootcamp.homework6.controller;
 
 import com.colvir.bootcamp.homework5.dto.SongDto;
 import com.colvir.bootcamp.homework6.service.PlaylistService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +21,7 @@ public class PlaylistClientController {
     public static final String REDIRECT = "redirect:/";
     public static final String ADD_SONG = "add-song";
     public static final String INDEX = "index";
+    public static final String UPDATE_SONG = "update-song";
 
     private final PlaylistService playlistService;
 
@@ -35,7 +38,10 @@ public class PlaylistClientController {
     }
 
     @PostMapping("/add")
-    public String addSong(@ModelAttribute SongDto song) {
+    public String addSong(@ModelAttribute("song") @Valid SongDto song, BindingResult result) {
+        if (result.hasErrors()) {
+            return ADD_SONG;
+        }
         playlistService.add(song);
         return REDIRECT;
     }
@@ -43,11 +49,14 @@ public class PlaylistClientController {
     @GetMapping("/update/{id}")
     public String showFormSong(@PathVariable Long id, Model model) {
         playlistService.getById(id).ifPresent(it -> model.addAttribute("song", it));
-        return "update-song";
+        return UPDATE_SONG;
     }
 
     @PostMapping("/update/{id}")
-    public String updateSong(@PathVariable Long id, @ModelAttribute SongDto songDto) {
+    public String updateSong(@PathVariable Long id, @ModelAttribute("song") @Valid SongDto songDto, BindingResult result) {
+        if (result.hasErrors()) {
+            return UPDATE_SONG;
+        }
         songDto.setId(id);
         playlistService.update(songDto);
         return REDIRECT;
