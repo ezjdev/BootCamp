@@ -21,6 +21,7 @@
         <module>h3PrototypeInjectionProblem</module>
         <module>h4Archiver</module>
         <module>h5WebRest</module>
+        <module>h6WebClient</module>
     </modules>
 
     <properties>
