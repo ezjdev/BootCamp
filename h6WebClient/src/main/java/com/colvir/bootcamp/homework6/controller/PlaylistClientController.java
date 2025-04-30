@@ -1,6 +1,6 @@
 package com.colvir.bootcamp.homework6.controller;
 
-import com.colvir.bootcamp.homework5.dto.SongDto;
+import com.colvir.bootcamp.homework6.dto.SongDto;
 import com.colvir.bootcamp.homework6.service.PlaylistService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

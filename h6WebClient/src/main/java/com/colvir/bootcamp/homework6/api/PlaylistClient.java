@@ -1,6 +1,6 @@
 package com.colvir.bootcamp.homework6.api;
 
-import com.colvir.bootcamp.homework5.dto.SongDto;
+import com.colvir.bootcamp.homework6.dto.SongDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
