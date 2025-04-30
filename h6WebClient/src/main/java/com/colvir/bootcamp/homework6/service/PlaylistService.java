@@ -1,7 +1,7 @@
 package com.colvir.bootcamp.homework6.service;
 
 import com.colvir.bootcamp.homework6.api.PlaylistClient;
-import com.colvir.bootcamp.homework5.dto.SongDto;
+import com.colvir.bootcamp.homework6.dto.SongDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
