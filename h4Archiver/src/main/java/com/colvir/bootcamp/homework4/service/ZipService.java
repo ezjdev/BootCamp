@@ -21,7 +21,7 @@ public class ZipService {
     public Path zip(Path source, Path destination) {
         try (ZipOutputStream zipOutputStream = new ZipOutputStream(new FileOutputStream(destination.toFile()));
                 FileInputStream inputStream = new FileInputStream(source.toFile())) {
-            ZipEntry zipEntry = new ZipEntry(source.toString());
+            ZipEntry zipEntry = new ZipEntry(source.getFileName().toString());
             zipOutputStream.putNextEntry(zipEntry);
             byte[] bytes = new byte[BUFF_SIZE];
             int length;
