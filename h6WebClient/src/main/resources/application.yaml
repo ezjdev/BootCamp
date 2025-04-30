@@ -3,6 +3,3 @@ server:
 backend:
   path:
     full: "http://localhost:8090/api/playlist"
-spring:
-  thymeleaf:
-    enabled: true
