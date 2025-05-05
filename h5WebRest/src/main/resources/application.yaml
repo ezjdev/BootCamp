@@ -1,3 +1,15 @@
+spring:
+  config:
+    import: classpath:secrets.yaml
+  datasource:
+    url: jdbc:postgresql://localhost:5433/bootcamp
+    driver-class-name: org.postgresql.Driver
+  sql:
+    init:
+      schema-locations: classpath:create_playlist_schema.sql
+      data-locations: classpath:prepare_playlist_data.sql
+      mode: always
+
 server:
   port: 8090
 
