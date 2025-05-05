@@ -3,8 +3,6 @@ package com.colvir.bootcamp.homework5.service;
 import com.colvir.bootcamp.homework5.WebRunner;
 import com.colvir.bootcamp.homework5.dto.ArtistDto;
 import com.colvir.bootcamp.homework5.dto.SongDto;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +23,8 @@ class PlaylistServiceTest {
     public static final String COUNTRY = "Country";
     public static final String GENRE = "Genre";
     public static final ArtistDto ARTIST = newArtist();
-    private static final @NotEmpty String POSTFIX = "0";
-    private static final @Min(4) Integer POSTFIX_INT = 1;
+    private static final String POSTFIX = "0";
+    private static final Integer POSTFIX_INT = 1;
     @Autowired
     private PlaylistService underTest;
 
@@ -44,7 +42,6 @@ class PlaylistServiceTest {
         Assertions.assertEquals(ARTIST, created.getArtist());
         Assertions.assertEquals(TITLE, created.getTitle());
         Assertions.assertEquals(VALID_RATING, created.getRating());
-        underTest.delete(created);
     }
 
     private SongDto addSongDto() {
@@ -64,7 +61,6 @@ class PlaylistServiceTest {
         Assertions.assertEquals(ARTIST, read.get().getArtist());
         Assertions.assertEquals(TITLE, read.get().getTitle());
         Assertions.assertEquals(VALID_RATING, read.get().getRating());
-        underTest.delete(read.get());
     }
 
     @Test
