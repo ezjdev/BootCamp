@@ -1,5 +1,6 @@
 package com.colvir.bootcamp.homework5.dao;
 
+import com.colvir.bootcamp.homework5.api.PlaylistDao;
 import com.colvir.bootcamp.homework5.model.Artist;
 import com.colvir.bootcamp.homework5.model.Song;
 import lombok.RequiredArgsConstructor;
@@ -11,15 +12,12 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Repository
 @RequiredArgsConstructor
 @Slf4j
-public class PlaylistDao {
+public class PlaylistJdbcDao implements PlaylistDao {
     public static final String ARTIST_ID = "artist_id";
     public static final String NAME = "name";
     public static final String GENRE = "genre";
@@ -32,17 +30,26 @@ public class PlaylistDao {
     public static final RowMapper<Song> SONG_ROW_MAPPER =
             (rs, rowNum) -> new Song(
                     rs.getLong(ID)
-                    , new Artist(
-                        rs.getLong(ARTIST_ID)
-                        , rs.getString(NAME)
-                        , rs.getString(GENRE)
-                        , rs.getString(COUNTRY))
+                    , new Artist()
+                        .setId(rs.getLong(ARTIST_ID))
+                        .setName(rs.getString(NAME))
+                        .setGenre(rs.getString(GENRE))
+                        .setCountry(rs.getString(COUNTRY))
                     , rs.getString(TITLE)
                     , rs.getTime(DURATION)
                     , rs.getInt(RATING));
 
+    public static final RowMapper<Artist> ARTIST_ROW_MAPPER =
+            (rs, rowNum) -> new Artist(
+                    rs.getLong(ID)
+                    , rs.getString(NAME)
+                    , rs.getString(GENRE)
+                    , rs.getString(COUNTRY)
+                    , Collections.emptyList());
+
     private final NamedParameterJdbcTemplate template;
 
+    @Override
     public Song insertOrUpdate(Song song) {
         return Optional.ofNullable(song)
                 .map(it -> Optional.of(it)
@@ -142,6 +149,7 @@ public class PlaylistDao {
                 .orElseThrow(() -> new IllegalArgumentException("Can't insert artist"));
     }
 
+    @Override
     public List<Song> getPlaylist() {
         return template.query(
                 """
@@ -154,6 +162,7 @@ public class PlaylistDao {
         );
     }
 
+    @Override
     public Song getById(Long id) {
         return template.queryForObject(
                 """
@@ -168,12 +177,37 @@ public class PlaylistDao {
         );
     }
 
+    @Override
     public void delete(Song song) {
         template.update(
                 """
                         DELETE FROM playlist.song WHERE id = :id
                         """
                 , Map.of(ID, song.getId())
+        );
+    }
+
+    @Override
+    public Artist getArtistById(Long id) {
+        return template.queryForObject(
+                """
+                            SELECT s.id, s.artist_id, s.title, s.rating, s.duration
+                                , a.name, a.genre, a.country
+                            FROM playlist.song s
+                            LEFT JOIN playlist.artist a ON s.artist_id = a.id
+                            WHERE s.id = :id;
+                        """
+                , Map.of(ID, id)
+                , ARTIST_ROW_MAPPER
+        );    }
+
+    @Override
+    public void delete(Artist artist) {
+        template.update(
+                """
+                        DELETE FROM playlist.artist WHERE id = :id
+                        """
+                , Map.of(ID, artist.getId())
         );
     }
 

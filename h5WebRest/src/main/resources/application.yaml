@@ -9,7 +9,15 @@ spring:
       schema-locations: classpath:create_playlist_schema.sql
       data-locations: classpath:prepare_playlist_data.sql
       mode: always
-
+  jpa:
+    generate-ddl: false
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        default_schema: playlist
+        format_sql: true
 server:
   port: 8090
 
