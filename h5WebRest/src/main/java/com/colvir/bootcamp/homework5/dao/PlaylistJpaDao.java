@@ -28,14 +28,16 @@ public class PlaylistJpaDao implements PlaylistDao {
                                 .filter(it -> Objects.nonNull(it.getId()))
                                 .map(entityManager::merge)
                                 .orElseGet(() ->
-                                            Optional.ofNullable(entityManager.createQuery("select t from Artist t where name = :name", Artist.class)
-                                                    .setParameter("name", song.getArtist().getName())
-                                                    .getResultList())
-                                                    .filter(Predicate.not(List::isEmpty))
-                                                    .map(it -> it.get(0))
-                                                    .orElseGet(() -> {
-                                                        entityManager.persist(songEntity.getArtist());
-                                                        return songEntity.getArtist();})
+                                        Optional.ofNullable(entityManager.createQuery("select t from Artist t where name = :name", Artist.class)
+                                                        .setParameter("name", song.getArtist().getName())
+                                                        .getResultList())
+                                                .filter(Predicate.not(List::isEmpty))
+                                                .map(it -> it.get(0))
+                                                .orElseGet(() -> {
+                                                    Artist artist = songEntity.getArtist();
+                                                    entityManager.persist(artist);
+                                                    return artist;
+                                                })
                                 )))
                 .filter(it -> Objects.nonNull(it.getId()))
                 .map(entityManager::merge)
@@ -46,13 +48,13 @@ public class PlaylistJpaDao implements PlaylistDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Song> getPlaylist() {
         return entityManager.createQuery("select s from Song s", Song.class).getResultList();
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Song getById(Long id) {
         return Optional.of(entityManager.createQuery(
                                 """
@@ -74,7 +76,7 @@ public class PlaylistJpaDao implements PlaylistDao {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Artist getArtistById(Long id) {
         return Optional.of(entityManager.createQuery(
                                 """

@@ -11,13 +11,13 @@ import java.util.List;
 @Mapper
 public interface SongMapper {
 
-    SongDto toDto (Song song);
-    Song fromDto (SongDto songDto);
+    SongDto toDto(Song song);
+    Song fromDto(SongDto songDto);
 
-    ArtistDto toDto (Artist artist);
-    Artist fromDto (ArtistDto artistDto);
+    ArtistDto toDto(Artist artist);
+    Artist fromDto(ArtistDto artistDto);
 
-    default List<SongDto> toDtoList (List<Song> songList) {
+    default List<SongDto> toDtoList(List<Song> songList) {
         return songList.stream().map(this::toDto).toList();
     }
 
