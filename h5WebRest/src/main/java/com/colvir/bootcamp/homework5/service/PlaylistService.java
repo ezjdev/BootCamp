@@ -9,7 +9,6 @@ import com.colvir.bootcamp.homework5.model.Artist;
 import com.colvir.bootcamp.homework5.repository.ArtistRepository;
 import com.colvir.bootcamp.homework5.repository.SongRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,6 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class PlaylistService {
 
     private final SongMapper mapper;
@@ -72,15 +70,15 @@ public class PlaylistService {
     public List<SongDto> getPlaylist(Pageable pageable) {
         return Optional.ofNullable(pageable)
                 .map(songRepository::findAll)
-                .filter(it -> it.getTotalPages()-1 >= pageable.getPageNumber())
+                .filter(it -> it.getTotalPages() - 1 >= pageable.getPageNumber())
                 .map(Page::getContent)
                 .map(mapper::toDtoList)
-                .orElseThrow(() -> new PageNotFoundException("Page " +
-                        Optional.ofNullable(pageable)
-                                .map(Pageable::getPageNumber)
-                                .map(String::valueOf)
-                                .orElse("null")
-                        + " not found"));
+                .orElseThrow(() ->
+                        new PageNotFoundException(
+                                "Page %s not found".formatted(Optional.ofNullable(pageable)
+                                        .map(Pageable::getPageNumber)
+                                        .map(String::valueOf)
+                                        .orElse("null"))));
     }
 
     @Transactional
