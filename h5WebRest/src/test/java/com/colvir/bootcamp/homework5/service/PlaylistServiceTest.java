@@ -3,16 +3,21 @@ package com.colvir.bootcamp.homework5.service;
 import com.colvir.bootcamp.homework5.WebRunner;
 import com.colvir.bootcamp.homework5.dto.ArtistDto;
 import com.colvir.bootcamp.homework5.dto.SongDto;
+import com.colvir.bootcamp.homework5.exception.PageNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(classes = {WebRunner.class})
+@Slf4j
 class PlaylistServiceTest {
 
     public static final String TITLE = "Title";
@@ -20,6 +25,8 @@ class PlaylistServiceTest {
     public static final String NAME = "Name";
     public static final String COUNTRY = "Country";
     public static final String GENRE = "Genre";
+    private static final Integer PAGE_SIZE = 30;
+    public static final int MAX_PAGE_NUMBER = 10;
     public static ArtistDto defaultArtist;
     private static final String POSTFIX = "0";
     private static final Integer POSTFIX_INT = 1;
@@ -34,7 +41,7 @@ class PlaylistServiceTest {
     }
 
     @Test
-    @DisplayName("Cascade create test")
+    @DisplayName("Create song and artist")
     void testCreate() {
         SongDto created = addSongDto();
         assertNotNull(created.getId());
@@ -45,16 +52,14 @@ class PlaylistServiceTest {
     }
 
     private SongDto addSongDto() {
-        return underTest.add(new SongDto().setArtist(defaultArtist/*.setId(null)*/)
+        return underTest.save(new SongDto().setArtist(defaultArtist/*.setId(null)*/)
                         .setTitle(TITLE)
                         .setRating(VALID_RATING))
                 .orElseThrow(() -> new RuntimeException("Can't add song to playlist"));
     }
 
     @Test
-    @DisplayName("N+1 selects problem")
-//  Do not reproduce the problem in full, only in part of fetch.LAZY
-//  If you don't use JOIN FETCH throws the org.hibernate.LazyInitializationException error
+    @DisplayName("Read song with artist by ID")
     void testRead() {
         Optional<SongDto> read = underTest.getById(addSongDto().getId());
 
@@ -66,13 +71,13 @@ class PlaylistServiceTest {
     }
 
     @Test
-    @DisplayName("Cascade update test")
+    @DisplayName("Update song and artist")
     void testUpdate() {
         SongDto forUpdate = addSongDto();
         forUpdate.setArtist(forUpdate.getArtist().setName(forUpdate.getArtist().getName() + POSTFIX))
                 .setTitle(forUpdate.getTitle() + POSTFIX)
                 .setRating(forUpdate.getRating() + POSTFIX_INT);
-        underTest.update(forUpdate);
+        underTest.save(forUpdate);
         Optional<SongDto> updated = underTest.getById(forUpdate.getId());
 
         assertTrue(updated.isPresent());
@@ -83,7 +88,7 @@ class PlaylistServiceTest {
     }
 
     @Test
-    @DisplayName("Cascade delete test")
+    @DisplayName("Remove artist with his songs")
     void testDelete() {
         SongDto forDelete = addSongDto();
         Long id = forDelete.getId();
@@ -91,6 +96,29 @@ class PlaylistServiceTest {
         underTest.delete(forDelete.getArtist());
         Assertions.assertFalse(underTest.getById(id).isPresent());
         Assertions.assertFalse(underTest.getByArtistId(artistId).isPresent());
+    }
+
+    @Test
+    @DisplayName("Read the list of songs using pagination")
+    void testPagination() {
+        Assertions.assertThrows(PageNotFoundException.class, () -> {
+            IntStream.iterate(0, it -> it < MAX_PAGE_NUMBER, i -> ++i)
+                    .forEach(it -> underTest.getPlaylist(PageRequest.of(it, PAGE_SIZE)));
+        });
+        Long readRecords = 0L;
+        Long maxRecordsOnPage = 0L;
+        Long songsCount = underTest.getSongsCount();
+        try {
+            for (int i = 0; i < MAX_PAGE_NUMBER; ++i) {
+                int readCurrentRecords = underTest.getPlaylist(PageRequest.of(i, PAGE_SIZE)).size();
+                readRecords += readCurrentRecords;
+                maxRecordsOnPage = Math.max(readCurrentRecords, maxRecordsOnPage);
+            }
+        } catch (PageNotFoundException e) {
+            log.error(e.getMessage());
+        }
+        Assertions.assertEquals(songsCount, readRecords);
+        Assertions.assertEquals(Long.valueOf(PAGE_SIZE), maxRecordsOnPage);
     }
 
 }

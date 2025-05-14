@@ -3,7 +3,10 @@ package com.colvir.bootcamp.homework5.controller;
 import com.colvir.bootcamp.homework5.dto.SongDto;
 import com.colvir.bootcamp.homework5.service.PlaylistService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -21,8 +24,10 @@ public class PlaylistController {
     private final PlaylistService playlistService;
 
     @GetMapping
-    public ResponseEntity<List<SongDto>> getPlaylist() {
-        return ResponseEntity.ok(playlistService.getPlaylist());
+    public ResponseEntity<List<SongDto>> getPlaylist(
+            @RequestParam(required = false, defaultValue = "0") @Min(0) Integer page,
+            @RequestParam(required = false, defaultValue = "30") @Max(100) Integer size) {
+        return ResponseEntity.ok(playlistService.getPlaylist(PageRequest.of(page, size)));
     }
 
     @GetMapping("/{id}")
@@ -37,7 +42,7 @@ public class PlaylistController {
     public SongDto addSong(@RequestBody @Valid SongDto songDto) {
         return Optional.of(songDto)
                 .filter(dto -> Optional.ofNullable(dto.getId()).isEmpty())
-                .flatMap(playlistService::add)
+                .flatMap(playlistService::save)
                 .orElseThrow(() -> new IllegalArgumentException("Can't save a song that already have id"));
     }
 
@@ -46,7 +51,7 @@ public class PlaylistController {
         return Optional.ofNullable(id)
                 .map(songDto::setId)
                 .map(it -> {
-                    playlistService.update(it);
+                    playlistService.save(it);
                     return ResponseEntity.noContent().build();
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
