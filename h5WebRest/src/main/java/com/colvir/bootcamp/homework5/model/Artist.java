@@ -1,6 +1,5 @@
 package com.colvir.bootcamp.homework5.model;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,6 +26,6 @@ public class Artist {
     private String genre;
     private String country;
     @ToString.Exclude
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "artist")
+    @OneToMany(mappedBy = "artist")
     private List<Song> songs;
 }

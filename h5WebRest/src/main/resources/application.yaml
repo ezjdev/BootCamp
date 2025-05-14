@@ -18,6 +18,7 @@ spring:
       hibernate:
         default_schema: playlist
         format_sql: true
+    open-in-view: false
 server:
   port: 8090
 
