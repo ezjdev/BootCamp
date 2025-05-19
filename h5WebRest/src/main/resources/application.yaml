@@ -4,11 +4,8 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5433/bootcamp
     driver-class-name: org.postgresql.Driver
-  sql:
-    init:
-      schema-locations: classpath:create_playlist_schema.sql
-      data-locations: classpath:prepare_playlist_data.sql
-      mode: always
+  liquibase:
+    change-log: classpath:db-migration/changelog.xml
   jpa:
     generate-ddl: false
     show-sql: true
@@ -16,7 +13,6 @@ spring:
       ddl-auto: validate
     properties:
       hibernate:
-        default_schema: playlist
         format_sql: true
     open-in-view: false
 server:

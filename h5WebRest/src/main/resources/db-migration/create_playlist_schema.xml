@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="ezapekin" id="Create-artist-table" >
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="artist"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="artist_id_seq" startValue="1" incrementBy="1"/>
+        <createTable tableName="artist">
+            <column name="id" type="bigint" defaultValueSequenceNext="artist_id_seq">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints unique="true"/>
+            </column>
+            <column name="genre" type="varchar(50)"/>
+            <column name="country" type="varchar(100)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="ezapekin" id="Create-song-table">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="song"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="song_id_seq" startValue="1" incrementBy="1"/>
+        <createTable tableName="song">
+            <column name="id" type="bigint" defaultValueSequenceNext="song_id_seq">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="artist_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_artist_song" references="artist(id)"/>
+            </column>
+            <column name="title" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="duration" type="time"/>
+            <column name="rating" type="int"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
