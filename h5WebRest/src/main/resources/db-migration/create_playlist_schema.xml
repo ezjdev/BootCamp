@@ -4,14 +4,14 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet author="ezapekin" id="Create-artist-table" >
+    <changeSet id="Create-artist-table" author="ezapekin">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="artist"/>
+                <tableExists tableName="artist" schemaName="playlist"/>
             </not>
         </preConditions>
-        <createSequence sequenceName="artist_id_seq" startValue="1" incrementBy="1"/>
-        <createTable tableName="artist">
+        <createSequence sequenceName="artist_id_seq" startValue="1" incrementBy="1" schemaName="playlist"/>
+        <createTable tableName="artist" schemaName="playlist">
             <column name="id" type="bigint" defaultValueSequenceNext="artist_id_seq">
                 <constraints primaryKey="true"/>
             </column>
@@ -22,14 +22,14 @@
             <column name="country" type="varchar(100)"/>
         </createTable>
     </changeSet>
-    <changeSet author="ezapekin" id="Create-song-table">
+    <changeSet id="Create-song-table" author="ezapekin">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="song"/>
+                <tableExists tableName="song" schemaName="playlist"/>
             </not>
         </preConditions>
-        <createSequence sequenceName="song_id_seq" startValue="1" incrementBy="1"/>
-        <createTable tableName="song">
+        <createSequence sequenceName="song_id_seq" startValue="1" incrementBy="1" schemaName="playlist"/>
+        <createTable tableName="song" schemaName="playlist">
             <column name="id" type="bigint" defaultValueSequenceNext="song_id_seq">
                 <constraints primaryKey="true"/>
             </column>

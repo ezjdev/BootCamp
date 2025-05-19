@@ -6,6 +6,7 @@ spring:
     driver-class-name: org.postgresql.Driver
   liquibase:
     change-log: classpath:db-migration/changelog.xml
+    default-schema: playlist
   jpa:
     generate-ddl: false
     show-sql: true
@@ -13,6 +14,7 @@ spring:
       ddl-auto: validate
     properties:
       hibernate:
+        default_schema: playlist
         format_sql: true
     open-in-view: false
 server:

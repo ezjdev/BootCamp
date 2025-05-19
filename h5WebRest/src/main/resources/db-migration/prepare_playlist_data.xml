@@ -4,10 +4,10 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet id="prepare_playlist_data" author="ezapekin">
+    <changeSet id="prepare_playlist_data" author="ezapekin" runOnChange="true">
         <sql dbms="postgresql" splitStatements="true">
-            DELETE FROM artist;
             DELETE FROM song;
+            DELETE FROM artist;
 
             INSERT INTO artist (id, name, genre, country)
             VALUES (1, 'The Beatles', 'Rock', 'United Kingdom'),
@@ -109,9 +109,9 @@
                    (97, 'Pat Benatar', 'Rock', 'United States'),
                    (98, 'Joan Jett', 'Rock', 'United States');
 
-            SELECT setval('artist_id_seq', 98, true);
+            SELECT setval('playlist.artist_id_seq', 99, true);
 
-            INSERT INTO song (artist_id, title, duration, rating)
+            INSERT INTO playlist.song (artist_id, title, duration, rating)
             VALUES (1, 'Hey Jude', '00:07:11', 5),
                    (2, 'Bohemian Rhapsody', '00:05:55', 5),
                    (3, 'Smells Like Teen Spirit', '00:05:01', 4),
@@ -212,7 +212,7 @@
                    (97, 'Hit Me With Your Best Shot', '00:02:51', 3),
                    (98, 'I Love Rock n Roll', '00:02:55', 3);
 
-            SELECT setval('song_id_seq', 98, true);
+            SELECT setval('playlist.song_id_seq', 99, true);
 
         </sql>
     </changeSet>
