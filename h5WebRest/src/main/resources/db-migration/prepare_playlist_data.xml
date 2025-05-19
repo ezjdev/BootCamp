@@ -6,10 +6,10 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
     <changeSet id="prepare_playlist_data" author="ezapekin" runOnChange="true">
         <sql dbms="postgresql" splitStatements="true">
-            DELETE FROM song;
-            DELETE FROM artist;
+            DELETE FROM playlist.song;
+            DELETE FROM playlist.artist;
 
-            INSERT INTO artist (id, name, genre, country)
+            INSERT INTO playlist.artist (id, name, genre, country)
             VALUES (1, 'The Beatles', 'Rock', 'United Kingdom'),
                    (2, 'Queen', 'Rock', 'United Kingdom'),
                    (3, 'Nirvana', 'Grunge', 'United States'),
