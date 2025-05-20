@@ -49,6 +49,7 @@ class PlaylistServiceTest {
         Assertions.assertEquals(defaultArtist, created.getArtist());
         Assertions.assertEquals(TITLE, created.getTitle());
         Assertions.assertEquals(VALID_RATING, created.getRating());
+        underTest.delete(created.getArtist());
     }
 
     private SongDto addSongDto() {
@@ -68,6 +69,7 @@ class PlaylistServiceTest {
         Assertions.assertEquals(defaultArtist, read.get().getArtist());
         Assertions.assertEquals(TITLE, read.get().getTitle());
         Assertions.assertEquals(VALID_RATING, read.get().getRating());
+        underTest.delete(read.get().getArtist());
     }
 
     @Test
@@ -85,6 +87,7 @@ class PlaylistServiceTest {
         Assertions.assertEquals(defaultArtist.setName(defaultArtist.getName() + POSTFIX), updated.get().getArtist());
         Assertions.assertEquals(TITLE + POSTFIX, updated.get().getTitle());
         Assertions.assertEquals(VALID_RATING + POSTFIX_INT, updated.get().getRating());
+        underTest.delete(forUpdate.getArtist());
     }
 
     @Test

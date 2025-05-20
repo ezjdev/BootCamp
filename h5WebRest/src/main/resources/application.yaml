@@ -2,13 +2,11 @@ spring:
   config:
     import: classpath:secrets.yaml
   datasource:
-    url: jdbc:postgresql://localhost:5433/bootcamp
+    url: jdbc:postgresql://localhost:5433/bootcamp?currentSchema=playlist
     driver-class-name: org.postgresql.Driver
-  sql:
-    init:
-      schema-locations: classpath:create_playlist_schema.sql
-      data-locations: classpath:prepare_playlist_data.sql
-      mode: always
+  liquibase:
+    change-log: classpath:db-migration/changelog.xml
+    default-schema: playlist
   jpa:
     generate-ddl: false
     show-sql: true
