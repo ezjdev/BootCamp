@@ -7,11 +7,11 @@
     <changeSet id="Create-artist-table" author="ezapekin">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="artist" schemaName="playlist"/>
+                <tableExists tableName="artist"/>
             </not>
         </preConditions>
-        <createSequence sequenceName="artist_id_seq" startValue="1" incrementBy="1" schemaName="playlist"/>
-        <createTable tableName="artist" schemaName="playlist">
+        <createSequence sequenceName="artist_id_seq" startValue="1" incrementBy="1"/>
+        <createTable tableName="artist">
             <column name="id" type="bigint" defaultValueSequenceNext="artist_id_seq">
                 <constraints primaryKey="true"/>
             </column>
@@ -25,11 +25,11 @@
     <changeSet id="Create-song-table" author="ezapekin">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="song" schemaName="playlist"/>
+                <tableExists tableName="song"/>
             </not>
         </preConditions>
-        <createSequence sequenceName="song_id_seq" startValue="1" incrementBy="1" schemaName="playlist"/>
-        <createTable tableName="song" schemaName="playlist">
+        <createSequence sequenceName="song_id_seq" startValue="1" incrementBy="1"/>
+        <createTable tableName="song">
             <column name="id" type="bigint" defaultValueSequenceNext="song_id_seq">
                 <constraints primaryKey="true"/>
             </column>
