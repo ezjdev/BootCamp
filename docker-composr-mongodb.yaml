@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:8.0.9
+    container_name: mongodb
+    volumes:
+      - mongodata:/data/db
+    ports:
+      - 8091:27017
+
+volumes:
+  mongodata:

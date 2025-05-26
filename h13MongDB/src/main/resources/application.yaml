@@ -1,0 +1,5 @@
+spring:
+  mongodb:
+    uri: mongodb://localhost:8091/playlist
+server:
+  port: 8092
