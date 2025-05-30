@@ -13,7 +13,7 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class UserPrincipal implements UserDetails {
 
-    static final String ROLE_PREFIX = "ROLE_";
+    public static final String ROLE_PREFIX = "ROLE_";
 
     private final transient User user;
 

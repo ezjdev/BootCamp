@@ -33,7 +33,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JwtUtil jwtUtil) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
-        .authorizeHttpRequests(request ->
+                .authorizeHttpRequests(request ->
                         request.requestMatchers(HttpMethod.POST, "/register", "/login").permitAll()
                                 .anyRequest().authenticated())
                 .addFilterBefore(new JwtSecurityFilter(jwtUtil), BasicAuthenticationFilter.class)

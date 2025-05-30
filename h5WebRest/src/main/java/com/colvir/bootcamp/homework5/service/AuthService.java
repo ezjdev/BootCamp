@@ -1,6 +1,5 @@
 package com.colvir.bootcamp.homework5.service;
 
-import com.colvir.bootcamp.homework5.security.util.JwtUtil;
 import com.colvir.bootcamp.homework5.dto.security.AuthorizedUser;
 import com.colvir.bootcamp.homework5.dto.security.CredentialsDto;
 import com.colvir.bootcamp.homework5.model.security.Role;
@@ -9,6 +8,7 @@ import com.colvir.bootcamp.homework5.model.security.User;
 import com.colvir.bootcamp.homework5.repository.RoleRepository;
 import com.colvir.bootcamp.homework5.repository.UserRepository;
 import com.colvir.bootcamp.homework5.security.Authorities;
+import com.colvir.bootcamp.homework5.security.util.JwtUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +23,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static com.colvir.bootcamp.homework5.security.UserPrincipal.ROLE_PREFIX;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -35,8 +37,6 @@ public class AuthService {
     public static final String NO_USER = "NoUser";
     public static final String ADMIN = "admin";
     public static final String NOT_ADMIN = "not admin";
-    public static final String ROLE = "ROLE_";
-
     private final Authorities authorities;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -74,7 +74,7 @@ public class AuthService {
                     , new String[]{
                             userRepository.findByLogin(credentials.getLogin())
                                     .map(it -> it.getRole().getName())
-                                    .map(ROLE::concat)
+                                    .map(ROLE_PREFIX::concat)
                                     .orElse("")}
             );
         } catch (AuthenticationException ex) {
