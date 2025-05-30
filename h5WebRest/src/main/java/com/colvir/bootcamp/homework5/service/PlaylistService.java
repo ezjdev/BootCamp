@@ -4,7 +4,7 @@ import com.colvir.bootcamp.homework5.dto.ArtistDto;
 import com.colvir.bootcamp.homework5.dto.SongDto;
 import com.colvir.bootcamp.homework5.exception.ArtistNotFoundException;
 import com.colvir.bootcamp.homework5.exception.PageNotFoundException;
-import com.colvir.bootcamp.homework5.mapper.SongMapper;
+import com.colvir.bootcamp.homework5.mapper.PlaylistMapper;
 import com.colvir.bootcamp.homework5.model.Artist;
 import com.colvir.bootcamp.homework5.repository.ArtistRepository;
 import com.colvir.bootcamp.homework5.repository.SongRepository;
@@ -21,7 +21,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PlaylistService {
 
-    private final SongMapper mapper;
+    private final PlaylistMapper mapper;
     private final SongRepository songRepository;
     private final ArtistRepository artistRepository;
 

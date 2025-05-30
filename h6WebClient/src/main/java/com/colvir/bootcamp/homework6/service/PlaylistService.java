@@ -13,13 +13,14 @@ import java.util.Optional;
 public class PlaylistService {
 
     private final PlaylistClient playlistClient;
+    private final AuthService authService;
 
     public Optional<List<SongDto>> getPlaylist() {
-        return Optional.ofNullable(playlistClient.getPlaylist().getBody());
+        return Optional.ofNullable(playlistClient.getPlaylist(authService.getBearerString()).getBody());
     }
 
     public void add(SongDto song) {
-        playlistClient.addSong(song);
+        playlistClient.addSong(song, authService.getBearerString());
     }
 
     public Optional<SongDto> getById(Long id) {
@@ -28,10 +29,10 @@ public class PlaylistService {
 
     public void update(SongDto songDto) {
         Optional.ofNullable(songDto)
-                        .ifPresent(it -> playlistClient.update(songDto.getId(), songDto));
+                        .ifPresent(it -> playlistClient.update(songDto.getId(), songDto, authService.getBearerString()));
     }
 
     public void delete(Long id) {
-        playlistClient.delete(id);
+        playlistClient.delete(id, authService.getBearerString());
     }
 }

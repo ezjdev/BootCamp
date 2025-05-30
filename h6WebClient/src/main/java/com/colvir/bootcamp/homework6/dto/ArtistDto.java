@@ -2,20 +2,20 @@ package com.colvir.bootcamp.homework6.dto;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import java.sql.Time;
-
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Accessors(chain = true)
-public class SongDto {
+public class ArtistDto {
     @Min(0)
     private Long id;
-    private ArtistDto artist;
     @NotEmpty
-    private String title;
-    private Time duration;
-    @Min(4)
-    private Integer rating;
+    private String name;
+    private String genre;
+    private String country;
 }

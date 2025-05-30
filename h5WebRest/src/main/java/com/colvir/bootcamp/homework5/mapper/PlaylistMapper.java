@@ -9,7 +9,7 @@ import org.mapstruct.Mapper;
 import java.util.List;
 
 @Mapper
-public interface SongMapper {
+public interface PlaylistMapper {
 
     SongDto toDto(Song song);
     Song fromDto(SongDto songDto);
