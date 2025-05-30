@@ -41,6 +41,8 @@
         <mockito-core.version>5.12.0</mockito-core.version>
         <mockito-junit-jupiter.version>5.12.0</mockito-junit-jupiter.version>
         <spring-boot-test.version>3.3.4</spring-boot-test.version>
+
+        <nimbus-jose-jwt.version>10.3</nimbus-jose-jwt.version>
     </properties>
 
     <dependencies>

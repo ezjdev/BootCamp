@@ -7,5 +7,6 @@
 
     <include file="create_playlist_schema.xml" relativeToChangelogFile="true"/>
     <include file="prepare_playlist_data.xml" relativeToChangelogFile="true"/>
+    <include file="security.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
