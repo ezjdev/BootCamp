@@ -37,7 +37,7 @@ class ArtistRepositoryTest {
     @DisplayName("Your context has been loaded")
     void contextLoad() {}
 
-    @DisplayName("Read list")
+    @DisplayName("Read the list of all artists")
     @Test
     void readList() {
         var artistList = underTest.findAll();
@@ -47,7 +47,7 @@ class ArtistRepositoryTest {
                 .allMatch(not(it -> it.getName() == null || it.getName().isEmpty()));
     }
 
-    @DisplayName("Read")
+    @DisplayName("Read the post with the artist The Beatles")
     @Test
     void read() {
         var artist = underTest.findByName(THE_BEATLES);
@@ -55,7 +55,7 @@ class ArtistRepositoryTest {
                 .hasFieldOrPropertyWithValue(PK_NAME, THE_BEATLES_ID);
     }
 
-    @DisplayName("Insert and delete")
+    @DisplayName("Insert and delete new artist")
     @Test
     void insertAndDelete() {
         var artistListSizeBefore = underTest.findAll().size();

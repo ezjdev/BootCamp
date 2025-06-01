@@ -34,7 +34,6 @@ class SongRepositoryTest {
     @Autowired
     private ArtistRepository artistRepository;
 
-
     @Test
     @DisplayName("Your context has been loaded")
     void contextLoad() {}

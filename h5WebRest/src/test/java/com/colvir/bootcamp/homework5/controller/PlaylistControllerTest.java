@@ -25,6 +25,7 @@ class PlaylistControllerTest {
 
     public static final long SONG_ID = 1L;
     public static final String TITLE = "Title";
+
     @Autowired
     private MockMvc mockMvc;
 
