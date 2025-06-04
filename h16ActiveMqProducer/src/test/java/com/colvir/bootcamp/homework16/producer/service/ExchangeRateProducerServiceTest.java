@@ -49,8 +49,7 @@ class ExchangeRateProducerServiceTest {
     @Container
     private static final ActiveMQContainer ACTIVE_MQ_CONTAINER =
             new ActiveMQContainer(ACTIVEMQ_DOCKER_IMAGE)
-                    .withExposedPorts(ACTIVE_MQ_PORT)
-                    .withEnv("ACTIVEMQ_ENABLE_SCHEDULER", "true");
+                    .withExposedPorts(ACTIVE_MQ_PORT);
 
     @MockitoBean
     private BelarusBankClient bankClient;
