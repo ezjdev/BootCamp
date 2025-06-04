@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.jms.ConnectionFactory;
 import jakarta.jms.Message;
 import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -35,8 +34,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.doReturn;
 import static org.testcontainers.shaded.org.awaitility.Awaitility.await;
 
-@SpringBootTest
 @Testcontainers
+@SpringBootTest
 @ContextConfiguration(classes = {
         ExchangeRateProducerService.class,
         ExchangeRateProducerServiceTest.BrokerConfig.class
@@ -86,9 +85,8 @@ class ExchangeRateProducerServiceTest {
         );
     }
 
-    @Configuration
     @EnableJms
-    @Slf4j
+    @Configuration
     static class BrokerConfig {
 
         private static final String BROKER_URL_TEMPLATE = "tcp://%s:%d";

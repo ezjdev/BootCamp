@@ -10,8 +10,8 @@ import org.springframework.web.client.RestClient;
 import org.springframework.web.client.support.RestClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
-@Configuration
 @EnableJms
+@Configuration
 public class JmsConfig {
 
     public static final String QUEUE_NAME = "exchangeRateQueue";
