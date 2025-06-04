@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  activemq:
+    image: apache/activemq-classic
+    ports:
+      # mqtt
+      - "1883:1883"
+      # amqp
+      - "5672:5672"
+      # ui
+      - "8161:8161"
+      # stomp
+      - "61613:61613"
+      # ws
+      - "61614:61614"
+      # jms
+      - "61616:61616"
+    volumes: [ "artemis-mq-data:/opt/activemq/conf", "artemis-mq-data:/data/activemq", "artemis-mq-data:/var/log/activemq" ]
+    environment:
+      ACTIVEMQ_DISALLOW_WEBCONSOLE: false
+      ACTIVEMQ_USERNAME: admin
+      ACTIVEMQ_PASSWORD: admin
+      ACTIVEMQ_WEBADMIN_USERNAME: adminui
+      ACTIVEMQ_WEBADMIN_PASSWORD: admin
+volumes:
+  artemis-mq-data:

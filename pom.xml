@@ -22,6 +22,8 @@
         <module>h4Archiver</module>
         <module>h5WebRest</module>
         <module>h6WebClient</module>
+        <module>h16ActiveMqProducer</module>
+        <module>h16ActiveMqConsumer</module>
     </modules>
 
     <properties>
@@ -43,6 +45,7 @@
         <spring-boot-test.version>3.3.4</spring-boot-test.version>
 
         <nimbus-jose-jwt.version>10.3</nimbus-jose-jwt.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
