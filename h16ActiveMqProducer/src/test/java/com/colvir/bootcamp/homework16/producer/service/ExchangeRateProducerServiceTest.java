@@ -6,7 +6,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.jms.ConnectionFactory;
 import jakarta.jms.Message;
-import lombok.SneakyThrows;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -62,9 +61,8 @@ class ExchangeRateProducerServiceTest {
     @Autowired
     private ExchangeRateProducerService underTest;
 
-    @SneakyThrows
-    @DisplayName("Producer can send message for listening another bean")
     @Test
+    @DisplayName("Producer can send message for listening another bean")
     void sendMessageTest() {
         try (InputStream inputStream =
                      Thread.currentThread()
