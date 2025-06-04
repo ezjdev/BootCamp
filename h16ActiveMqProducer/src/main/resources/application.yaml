@@ -1,0 +1,11 @@
+app:
+  belarusbank:
+    url: https://belarusbank.by/
+    city: Глубокое
+spring:
+  activemq:
+    broker-url: tcp://localhost:61616
+    user: admin
+    password: admin
+server:
+  port: 8093
