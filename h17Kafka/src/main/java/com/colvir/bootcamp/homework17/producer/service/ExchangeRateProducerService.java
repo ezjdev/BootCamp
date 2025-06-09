@@ -2,7 +2,6 @@ package com.colvir.bootcamp.homework17.producer.service;
 
 import com.colvir.bootcamp.homework17.dto.ExchangeRateDto;
 import com.colvir.bootcamp.homework17.producer.client.BelarusBankClient;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -20,8 +19,7 @@ import static com.colvir.bootcamp.homework17.config.KafkaConfig.TOPIC_NAME;
 @RequiredArgsConstructor
 public class ExchangeRateProducerService {
 
-    private final ObjectMapper objectMapper;
-    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, ExchangeRateDto> kafkaTemplate;
 
     private final BelarusBankClient belarusBankClient;
 
@@ -32,7 +30,7 @@ public class ExchangeRateProducerService {
     public void sendExchangeRate(ExchangeRateDto exchangeRateDto) {
         kafkaTemplate.send(TOPIC_NAME
                         , exchangeRateDto.getFilialId()
-                        , objectMapper.writeValueAsString(exchangeRateDto))
+                        , exchangeRateDto)
                 .whenComplete(
                         (result, exception) -> Optional.ofNullable(exception)
                                 .ifPresentOrElse(
