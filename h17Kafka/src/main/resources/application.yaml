@@ -1,0 +1,6 @@
+app:
+  belarusbank:
+    url: https://belarusbank.by/
+    city: Глубокое
+server:
+  port: 8093
