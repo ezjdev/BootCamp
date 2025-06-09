@@ -35,7 +35,10 @@ public class ExchangeRateProducerService {
                         (result, exception) -> Optional.ofNullable(exception)
                                 .ifPresentOrElse(
                                         it -> log.error("Error while sending event", it),
-                                        () -> log.info("\nExchangeRate: {}\nOffset: {}"
+                                        () -> log.info("""
+                                                        
+                                                        ExchangeRate: {}
+                                                        Offset: {}"""
                                                 , exchangeRateDto
                                                 , result.getRecordMetadata().offset())
                                 )

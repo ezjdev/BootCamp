@@ -10,8 +10,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -30,7 +31,6 @@ import static org.testcontainers.shaded.org.awaitility.Awaitility.await;
 @Testcontainers
 @SpringBootTest
 @DirtiesContext
-@EmbeddedKafka
 class ExchangeRateProducerServiceTest {
 
     public static final String TEST_CITY = "Глубокое";
@@ -40,6 +40,11 @@ class ExchangeRateProducerServiceTest {
     private static final KafkaContainer KAFKA_CONTAINER =
             new KafkaContainer(KAFKA_DOCKER_IMAGE);
     private static final Duration AWAIT_TIMEOUT = Duration.ofSeconds(10);
+
+    @DynamicPropertySource
+    static void setKafkaProps(DynamicPropertyRegistry registry) {
+        registry.add("spring.kafka.bootstrap-servers", KAFKA_CONTAINER::getBootstrapServers);
+    }
 
     @MockitoBean
     private BelarusBankClient bankClient;
