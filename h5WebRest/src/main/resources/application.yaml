@@ -17,6 +17,10 @@ spring:
         default_schema: playlist
         format_sql: true
     open-in-view: false
+  cache:
+    type: hazelcast
+  hazelcast:
+    config: classpath:hazelcast-client.yaml
 server:
   port: 8090
 

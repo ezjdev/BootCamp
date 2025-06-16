@@ -1,0 +1,17 @@
+  version: "3.8"
+  services:
+    hazelcast:
+      image: hazelcast/hazelcast
+      ports:
+        - "5701:5701"
+      environment:
+        HZ_NETWORK_PUBLICADDRESS: "hazelcast:5701"
+    hazelcast-mc:
+      image: hazelcast/management-center
+      ports:
+        - "8082:8080"
+      environment:
+        MC_DEFAULT_CLUSTER: "dev"
+        MC_DEFAULT_CLUSTER_MEMBERS: "hazelcast:5701"
+      depends_on:
+        - hazelcast

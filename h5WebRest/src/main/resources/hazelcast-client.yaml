@@ -1,0 +1,16 @@
+hazelcast-client:
+  connection-strategy:
+    async-start: true
+    reconnect-mode: ASYNC
+    connection-retry:
+      jitter: 0.5
+      multiplier: 2
+      initial-backoff-millis: 1000
+      max-backoff-millis: 30000
+      # long max value
+      cluster-connect-timeout-millis: 9223372036854775807
+  client-labels:
+    - base-colvir
+  network:
+    cluster-members:
+      - localhost:5701
