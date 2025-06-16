@@ -26,7 +26,7 @@ public class CachingPlayListService implements PlaylistService {
     private final CacheManager cacheManager;
 
     @Override
-    @Cacheable(cacheNames = BOOTCAMP_SONG_ID, key = "#songId")
+    @Cacheable(cacheNames = BOOTCAMP_SONG_ID, key = "#songId", unless = "#result == null")
     public Optional<SongDto> getById(Long songId) {
         return playlistService.getById(songId);
     }
@@ -57,7 +57,7 @@ public class CachingPlayListService implements PlaylistService {
     }
 
     @Override
-    @Cacheable(cacheNames = BOOTCAMP_ARTIST_ID, key = "#id")
+    @Cacheable(cacheNames = BOOTCAMP_ARTIST_ID, key = "#id", unless = "#result == null")
     public Optional<ArtistDto> getByArtistId(Long id) {
         return playlistService.getByArtistId(id);
     }
