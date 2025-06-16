@@ -1,7 +1,7 @@
 package com.colvir.bootcamp.homework5.controller;
 
+import com.colvir.bootcamp.homework5.api.PlaylistService;
 import com.colvir.bootcamp.homework5.dto.SongDto;
-import com.colvir.bootcamp.homework5.service.PlaylistService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

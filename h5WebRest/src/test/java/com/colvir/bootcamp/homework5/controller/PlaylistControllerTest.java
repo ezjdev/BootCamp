@@ -1,7 +1,7 @@
 package com.colvir.bootcamp.homework5.controller;
 
+import com.colvir.bootcamp.homework5.api.PlaylistService;
 import com.colvir.bootcamp.homework5.dto.SongDto;
-import com.colvir.bootcamp.homework5.service.PlaylistService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

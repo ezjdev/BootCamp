@@ -1,5 +1,6 @@
 package com.colvir.bootcamp.homework5.service;
 
+import com.colvir.bootcamp.homework5.api.PlaylistService;
 import com.colvir.bootcamp.homework5.dto.ArtistDto;
 import com.colvir.bootcamp.homework5.dto.SongDto;
 import com.colvir.bootcamp.homework5.exception.ArtistNotFoundException;
@@ -19,13 +20,14 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class PlaylistService {
+public class PlaylistServiceImpl implements PlaylistService {
 
     private final PlaylistMapper mapper;
     private final SongRepository songRepository;
     private final ArtistRepository artistRepository;
 
     @Transactional(readOnly = true)
+    @Override
     public Optional<SongDto> getById(Long songId) {
         return Optional.ofNullable(songId)
                 .flatMap(songRepository::findById)
@@ -33,6 +35,7 @@ public class PlaylistService {
     }
 
     @Transactional
+    @Override
     public Optional<SongDto> save(SongDto songDto) {
         return Optional.ofNullable(songDto)
                 .map(mapper::fromDto)
@@ -60,6 +63,7 @@ public class PlaylistService {
     }
 
     @Transactional
+    @Override
     public void delete(SongDto songDto) {
         Optional.ofNullable(songDto)
                 .map(mapper::fromDto)
@@ -67,6 +71,7 @@ public class PlaylistService {
     }
 
     @Transactional(readOnly = true)
+    @Override
     public List<SongDto> getPlaylist(Pageable pageable) {
         return Optional.ofNullable(pageable)
                 .map(songRepository::findAll)
@@ -82,6 +87,7 @@ public class PlaylistService {
     }
 
     @Transactional
+    @Override
     public void delete(ArtistDto artist) {
         Optional.ofNullable(artist)
                 .map(mapper::fromDto)
@@ -93,6 +99,7 @@ public class PlaylistService {
     }
 
     @Transactional(readOnly = true)
+    @Override
     public Optional<ArtistDto> getByArtistId(Long id) {
         return Optional.ofNullable(id)
                 .flatMap(artistRepository::findById)
@@ -100,6 +107,7 @@ public class PlaylistService {
     }
 
     @Transactional(readOnly = true)
+    @Override
     public Long getSongsCount() {
         return songRepository.count();
     }
