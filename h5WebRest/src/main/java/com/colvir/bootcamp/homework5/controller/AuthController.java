@@ -2,7 +2,6 @@ package com.colvir.bootcamp.homework5.controller;
 
 import com.colvir.bootcamp.homework5.dto.security.CredentialsDto;
 import com.colvir.bootcamp.homework5.service.AuthService;
-import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -27,7 +26,6 @@ public class AuthController {
 
     public static final String INVALID_CREDENTIALS = "Invalid credentials";
 
-    @Timed("register")
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody CredentialsDto credentials) {
         return Optional.ofNullable(credentials)
@@ -36,7 +34,6 @@ public class AuthController {
                 .orElseGet(() -> ResponseEntity.badRequest().body(USERNAME_ALREADY_REGISTERED));
     }
 
-    @Timed("login")
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody CredentialsDto credentials) {
         return Optional.ofNullable(credentials)
