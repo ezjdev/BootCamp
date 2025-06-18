@@ -1,3 +1,5 @@
+app:
+  name: bootcamp_web_server
 spring:
   config:
     import: classpath:secrets.yaml
@@ -21,6 +23,19 @@ spring:
     type: hazelcast
   hazelcast:
     config: classpath:hazelcast-client.yaml
+management:
+  endpoints.web.exposure.include: 'prometheus, metrics, info, health, env, refresh, beans, mappings'
+  endpoint:
+    health:
+      show-details: ALWAYS
+    metrics:
+      access: read_only
+    prometheus:
+      access: read_only
+  prometheus:
+    metrics:
+      export:
+        enabled: true
 server:
   port: 8090
 

@@ -9,6 +9,7 @@ import com.colvir.bootcamp.homework5.repository.RoleRepository;
 import com.colvir.bootcamp.homework5.repository.UserRepository;
 import com.colvir.bootcamp.homework5.security.Authorities;
 import com.colvir.bootcamp.homework5.security.util.JwtUtil;
+import io.micrometer.core.annotation.Timed;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +45,7 @@ public class AuthService {
     private final AuthenticationManager authManager;
     private final JwtUtil jwtUtil;
 
+    @Timed("register")
     @Transactional
     public boolean register(CredentialsDto credentials) {
         return Optional.ofNullable(credentials)
@@ -65,6 +67,7 @@ public class AuthService {
                 });
     }
 
+    @Timed("login")
     @Transactional
     public String login(CredentialsDto credentials) {
         try {
