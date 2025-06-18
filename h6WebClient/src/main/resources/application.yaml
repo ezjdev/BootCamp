@@ -1,3 +1,5 @@
+app:
+  name: bootcamp_web_client
 spring:
   config:
     import: classpath:secrets.yaml
@@ -6,3 +8,16 @@ server:
 backend:
   path:
     full: "http://localhost:8090/"
+management:
+  endpoints.web.exposure.include: 'prometheus, metrics, info, health, env, refresh, beans, mappings'
+  endpoint:
+    health:
+      show-details: ALWAYS
+    metrics:
+      access: read_only
+    prometheus:
+      access: read_only
+  prometheus:
+    metrics:
+      export:
+        enabled: true

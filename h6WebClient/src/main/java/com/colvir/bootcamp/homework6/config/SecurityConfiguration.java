@@ -17,7 +17,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JwtUtil jwtUtil) throws Exception {
         return http.authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/login", "/css/**", "/images/**").permitAll()
+                        .requestMatchers("/login", "/css/**", "/images/**", "/actuator", "/actuator/**").permitAll()
                         .anyRequest().hasRole("USER")
                 )
                 .addFilterBefore(new JwtSecurityFilter(jwtUtil), BasicAuthenticationFilter.class)
