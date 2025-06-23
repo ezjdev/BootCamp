@@ -1,6 +1,6 @@
 package com.colvir.bootcamp.homework6.service;
 
-import com.colvir.bootcamp.homework6.api.PlaylistClient;
+import com.colvir.bootcamp.homework6.feign.PlaylistClient;
 import com.colvir.bootcamp.homework6.dto.CredentialsDto;
 import io.micrometer.core.annotation.Counted;
 import io.micrometer.core.annotation.Timed;

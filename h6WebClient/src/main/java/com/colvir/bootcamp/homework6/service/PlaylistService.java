@@ -1,6 +1,6 @@
 package com.colvir.bootcamp.homework6.service;
 
-import com.colvir.bootcamp.homework6.api.PlaylistClient;
+import com.colvir.bootcamp.homework6.feign.PlaylistClient;
 import com.colvir.bootcamp.homework6.dto.SongDto;
 import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +28,7 @@ public class PlaylistService {
 
     @Timed("get_by_id")
     public Optional<SongDto> getById(Long id) {
-        return Optional.ofNullable(playlistClient.getById(id).getBody());
+        return Optional.ofNullable(playlistClient.getById(id, authService.getBearerString()).getBody());
     }
 
     @Timed("update")

@@ -1,6 +1,8 @@
 app:
   name: bootcamp_web_server
 spring:
+  application:
+    name: PlaylistService
   config:
     import: classpath:secrets.yaml
   datasource:
@@ -43,3 +45,10 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
   packages-to-scan: com.colvir.bootcamp.homework5
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
