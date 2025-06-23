@@ -16,6 +16,11 @@
     <dependencies>
 
         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
@@ -144,6 +149,13 @@
                     <compilerArgs>
                         <compilerArg>-Amapstruct.defaultComponentModel=${mapstruct.defaulComponentModel}</compilerArg>
                     </compilerArgs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <configuration>
+                    <offline>true</offline>
                 </configuration>
             </plugin>
         </plugins>
