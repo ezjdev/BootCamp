@@ -13,7 +13,7 @@ spring:
     config:
       server:
         git:
-          uri: file://${user.dir}/config-repo
+          uri: file://${user.home}/config-repo
           defaultLabel: master
       stream:
         kafka:
