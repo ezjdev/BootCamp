@@ -25,6 +25,8 @@
         <module>h16ActiveMqProducer</module>
         <module>h16ActiveMqConsumer</module>
         <module>h22ServiceDiscovery</module>
+        <module>h23ApiGateway</module>
+        <module>h23CentralizedConfiguration</module>
     </modules>
 
     <properties>
@@ -99,5 +101,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+
 
 </project>

@@ -4,7 +4,7 @@ spring:
   application:
     name: PlaylistService
   config:
-    import: classpath:secrets.yaml
+    import: classpath:secrets.yaml, optional:configserver:http://localhost:8600
   datasource:
     url: jdbc:postgresql://localhost:5433/bootcamp?currentSchema=playlist
     driver-class-name: org.postgresql.Driver
@@ -51,4 +51,4 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/, http://localhost:8762/eureka/
