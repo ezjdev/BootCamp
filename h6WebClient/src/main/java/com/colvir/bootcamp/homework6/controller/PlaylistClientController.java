@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -94,6 +96,11 @@ public class PlaylistClientController {
                     "error", "Invalid credentials");
             return LOGIN;
         }
+    }
+
+    @GetMapping("/project-name")
+    public ResponseEntity<String> configServer(@Value("${info.project.name}") String foo) {
+        return ResponseEntity.ok(foo);
     }
 
 }

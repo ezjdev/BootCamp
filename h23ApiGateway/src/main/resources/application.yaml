@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: ApiGateway
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: server_route
+              uri: lb://PlaylistService
+              predicates:
+                - Path=/server/**
+              filters:
+                - StripPrefix=1
+            - id: client_route
+              uri: lb://PlaylistClientService
+              predicates:
+                - Path=/client/**
+              filters:
+                - StripPrefix=1
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/, http://localhost:8762/eureka/
+
+server:
+  port: 8080
+
+management:
+  endpoints.web.exposure.include: 'gateway, prometheus, metrics, info, health, env'
+  endpoint:
+    metrics:
+      access: read_only
+    prometheus:
+      access: read_only
+  prometheus:
+    metrics:
+      export:
+        enabled: true
