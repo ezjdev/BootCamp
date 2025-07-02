@@ -14,7 +14,6 @@ spring:
       server:
         git:
           uri: file://${user.home}/config-repo
-          defaultLabel: master
       stream:
         kafka:
           binder:
