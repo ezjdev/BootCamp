@@ -1,17 +1,13 @@
 package com.colvir.bootcamp.homework6.controller;
 
-import com.colvir.bootcamp.homework6.dto.CredentialsDto;
 import com.colvir.bootcamp.homework6.dto.SongDto;
-import com.colvir.bootcamp.homework6.service.AuthService;
 import com.colvir.bootcamp.homework6.service.PlaylistService;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,8 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Collections;
 
-import static com.colvir.bootcamp.homework6.security.filter.JwtSecurityFilter.JWT_TOKEN;
-
+@Slf4j
 @Controller
 @RefreshScope
 @RequiredArgsConstructor
@@ -33,13 +28,11 @@ public class PlaylistClientController {
     public static final String ADD_SONG = "add-song";
     public static final String INDEX = "index";
     public static final String UPDATE_SONG = "update-song";
-    public static final String LOGIN = "login";
 
     private final PlaylistService playlistService;
-    private final AuthService authService;
 
     @GetMapping
-    public String listItems(Model model, Authentication authentication) {
+    public String listItems(Model model) {
         model.addAttribute("songs", playlistService.getPlaylist().orElse(Collections.emptyList()));
         return INDEX;
     }
@@ -77,27 +70,9 @@ public class PlaylistClientController {
 
     @GetMapping("/delete/{id}")
     public String deleteSong(@PathVariable Long id) {
+        log.info("delete song {}", id);
         playlistService.delete(id);
         return REDIRECT;
-    }
-
-    @GetMapping("/login")
-    public String loginPage(Model model) {
-        model.addAttribute("cred", new CredentialsDto());
-        return LOGIN;
-    }
-
-    @PostMapping("/login")
-    public String authenticate(@ModelAttribute("cred") CredentialsDto cred, Model model, HttpSession session, HttpServletResponse response) {
-        try {
-            String token = authService.authenticate(cred);
-            session.setAttribute(JWT_TOKEN, token);
-            return REDIRECT;
-        } catch (Exception e) {
-            model.addAttribute(
-                    "error", "Invalid credentials");
-            return LOGIN;
-        }
     }
 
     @GetMapping("/project-name")

@@ -10,6 +10,7 @@ import com.colvir.bootcamp.homework5.model.Artist;
 import com.colvir.bootcamp.homework5.repository.ArtistRepository;
 import com.colvir.bootcamp.homework5.repository.SongRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class PlaylistServiceImpl implements PlaylistService {
@@ -65,6 +67,7 @@ public class PlaylistServiceImpl implements PlaylistService {
     @Transactional
     @Override
     public void delete(SongDto songDto) {
+        log.info("Deleting song: {}", songDto);
         Optional.ofNullable(songDto)
                 .map(mapper::fromDto)
                 .ifPresent(songRepository::delete);
