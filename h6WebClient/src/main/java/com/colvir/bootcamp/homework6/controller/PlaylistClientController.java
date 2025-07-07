@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ import java.util.Collections;
 import static com.colvir.bootcamp.homework6.security.filter.JwtSecurityFilter.JWT_TOKEN;
 
 @Controller
+@RefreshScope
 @RequiredArgsConstructor
 public class PlaylistClientController {
 
