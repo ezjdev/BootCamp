@@ -10,7 +10,7 @@
 </head>
 <body>
 <h2>Playlist</h2>
-<a th:href="@{/add}">Add New song</a>
+<a th:href="@{/client/add}">Add New song</a>
 <table>
     <thead>
     <tr>
@@ -27,8 +27,8 @@
         <td th:text="${song.title}"></td>
         <td th:text="${song.rating}"></td>
         <td>
-            <a th:href="@{/update/{id}(id=${song.id})}">Edit</a>
-            <a th:href="@{/delete/{id}(id=${song.id})}"
+            <a th:href="@{/client/update/{id}(id=${song.id})}">Edit</a>
+            <a th:href="@{/client/delete/{id}(id=${song.id})}"
                onclick="return confirm('Are you sure?')">Delete</a>
         </td>
     </tr>

@@ -5,7 +5,7 @@
 </head>
 <body>
 <h2>Edit song</h2>
-<form th:action="@{/update/{id}(id=${song.id})}" th:object="${song}" method="post">
+<form th:action="@{/client/update/{id}(id=${song.id})}" th:object="${song}" method="post">
     <div>
         <label>Artist :</label>
         <input type="text" th:field="*{artist}"/>
@@ -23,7 +23,7 @@
     </div>
     <div>
         <button type="submit">Update song</button>
-        <a th:href="@{/}">Cancel</a>
+        <a th:href="@{/client/}">Cancel</a>
     </div>
 </form>
 </body>

@@ -18,6 +18,22 @@ spring:
                 - Path=/client/**
               filters:
                 - StripPrefix=1
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8500/realms/example/protocol/openid-connect/certs
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8500/realms/example
+        registration:
+          gateway-client:
+            provider: keycloak
+            client-id: gateway-client
+            client-secret: H9GDW6PWfwYJpcurEK8SXkcK5Bt8ukmy
+            authorization-grant-type: authorization_code
+            scope: openid
 eureka:
   client:
     serviceUrl:
@@ -37,3 +53,6 @@ management:
     metrics:
       export:
         enabled: true
+  tracing:
+    sampling:
+      probability: 1
