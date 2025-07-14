@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: '2025-07-13T15:30:26Z'
+  managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:spec:
+          f:internalTrafficPolicy: {}
+          f:ports:
+            .: {}
+            k:{"port":5432,"protocol":"TCP"}:
+              .: {}
+              f:name: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
+          f:selector: {}
+          f:sessionAffinity: {}
+          f:type: {}
+      manager: steve
+      operation: Update
+      time: '2025-07-13T15:31:26Z'
+  name: db-service
+  namespace: default
+  resourceVersion: '27256'
+  uid: 34ed56d5-e92c-4db7-bbe4-41752b14e119
+spec:
+  clusterIP: 10.43.16.110
+  clusterIPs:
+    - 10.43.16.110
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+    - name: main
+      port: 5432
+      protocol: TCP
+      targetPort: 5432
+  selector:
+    workload.user.cattle.io/workloadselector: apps.deployment-default-postgresql
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: '2025-07-13T15:28:26Z'
+  managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:spec:
+          f:internalTrafficPolicy: {}
+          f:ports:
+            .: {}
+            k:{"port":5701,"protocol":"TCP"}:
+              .: {}
+              f:name: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
+          f:selector: {}
+          f:sessionAffinity: {}
+          f:type: {}
+      manager: steve
+      operation: Update
+      time: '2025-07-13T15:28:26Z'
+  name: hazelcast-service
+  namespace: default
+  resourceVersion: '27151'
+  uid: a6630289-26e4-41de-a406-8047af42776b
+spec:
+  clusterIP: 10.43.231.165
+  clusterIPs:
+    - 10.43.231.165
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+    - name: main
+      port: 5701
+      protocol: TCP
+      targetPort: 5701
+  selector:
+    workload.user.cattle.io/workloadselector: apps.deployment-default-hazelcast
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

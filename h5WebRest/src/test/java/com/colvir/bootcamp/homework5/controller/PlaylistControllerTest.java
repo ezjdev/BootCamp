@@ -4,8 +4,9 @@ import com.colvir.bootcamp.homework5.api.PlaylistService;
 import com.colvir.bootcamp.homework5.dto.SongDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -19,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(PlaylistController.class)
-@AutoConfigureMockMvc
+@ImportAutoConfiguration(RefreshAutoConfiguration.class)
 class PlaylistControllerTest {
 
     public static final long SONG_ID = 1L;

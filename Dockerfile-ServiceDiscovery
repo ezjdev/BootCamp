@@ -1,0 +1,24 @@
+# Use an official Maven image as the base image
+FROM maven:3.8.5-openjdk-17-slim AS build
+# Set the working directory in the container
+WORKDIR /app
+# Copy the parent pom.xml
+COPY pom.xml .
+# Install the parent tusing Maven
+RUN mvn install -N
+# Copy the pom.xml and the project files to the container
+COPY h22ServiceDiscovery/pom.xml /app/h22ServiceDiscovery/
+COPY h22ServiceDiscovery/src /app/h22ServiceDiscovery/src
+# Set the working directory in the container
+WORKDIR /app/h22ServiceDiscovery
+# Build the application using Maven
+RUN mvn clean package -DskipTests
+
+# Use an official OpenJDK image as the base image
+FROM openjdk:17-jdk-slim
+# Set the working directory in the container
+WORKDIR /app
+# Copy the built JAR file from the previous stage to the container
+COPY --from=build /app/h22ServiceDiscovery/target/eureka-executable.jar app.jar
+# Set the command to run the application
+CMD ["java", "-jar", "app.jar"]

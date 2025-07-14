@@ -1,0 +1,22 @@
+apiVersion: v1
+data:
+  hazelcast-client.network.cluster-members: hazelcast-service:5701
+  spring.datasource.url: jdbc:postgresql://db-service:5432/bootcamp?currentSchema=playlist
+kind: ConfigMap
+metadata:
+  creationTimestamp: '2025-07-10T20:11:53Z'
+  managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:data:
+          .: {}
+          f:hazelcast-client.network.cluster-members: {}
+          f:spring.datasource.url: {}
+      manager: steve
+      operation: Update
+      time: '2025-07-13T21:17:49Z'
+  name: server
+  namespace: default
+  resourceVersion: '34764'
+  uid: 21cc3a93-6bae-450a-8394-19bb55ad995c
