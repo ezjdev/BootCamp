@@ -1,0 +1,32 @@
+cloud.aws:
+  region.static: us-east-1
+  s3:
+    bucket: bucket-s3
+    disable-ssl-validation: false
+    endpoint: http://localhost:4566/
+  credentials:
+    access-key: test
+    secret-key: test
+
+spring:
+  thymeleaf:
+      cache: false
+  application:
+    name: S3
+  main:
+    banner-mode: 'off'
+
+server:
+  port: 8809
+
+management:
+  endpoints.web.exposure.include: 'prometheus, metrics, info, health, env, refresh'
+  endpoint:
+    metrics:
+      access: read_only
+    prometheus:
+      access: read_only
+  prometheus:
+    metrics:
+      export:
+        enabled: true

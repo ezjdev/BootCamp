@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: '2025-07-13T21:39:27Z'
+  managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:spec:
+          f:internalTrafficPolicy: {}
+          f:ports:
+            .: {}
+            k:{"port":9411,"protocol":"TCP"}:
+              .: {}
+              f:name: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
+          f:selector: {}
+          f:sessionAffinity: {}
+          f:type: {}
+      manager: steve
+      operation: Update
+      time: '2025-07-13T21:40:59Z'
+  name: zipkin-service
+  namespace: default
+  resourceVersion: '35374'
+  uid: d13ad00d-41cb-4271-a685-97361cf29cfb
+spec:
+  clusterIP: 10.43.74.74
+  clusterIPs:
+    - 10.43.74.74
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+    - name: http
+      port: 9411
+      protocol: TCP
+      targetPort: 9411
+  selector:
+    workload.user.cattle.io/workloadselector: apps.deployment-default-zipkin
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

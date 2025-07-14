@@ -1,0 +1,29 @@
+app:
+  name: bootcamp_web_client
+spring:
+  cloud:
+    kubernetes:
+      enabled: true
+      discovery:
+        enabled: true
+        all-namespaces: false # Set to true if services are in different namespaces
+  application:
+    name: playlist-service
+server:
+  port: 8091
+management:
+  endpoints.web.exposure.include: 'prometheus, metrics, info, health, env, refresh, beans, mappings'
+  endpoint:
+    health:
+      show-details: ALWAYS
+    metrics:
+      access: read_only
+    prometheus:
+      access: read_only
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+  tracing:
+    sampling:
+      probability: 1
